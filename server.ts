@@ -8,22 +8,18 @@ const app = express();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// PORT (Railway uses this)
+// Railway port
 const PORT = process.env.PORT || 8080;
 
-// SIMPLE TEST ROUTE (IMPORTANT)
-app.get("/", (req, res) => {
-  res.send("🚀 VoiceForge TTS is running!");
-});
-
-// Serve frontend if built
+// Serve built frontend
 app.use(express.static(path.join(__dirname, "dist")));
 
+// Catch all routes → send React app
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "dist", "index.html"));
 });
 
-// START SERVER
+// Start server
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
